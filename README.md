@@ -1,3 +1,3 @@
 Measures OpenFst compose time.
 
-Call: `./fst-compose fst1 fst2`
+Call: `./fstcompose-speedtest fst1 fst2`
