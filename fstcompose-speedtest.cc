@@ -10,11 +10,14 @@ int main(int argc, char** argv) {
   StdVectorFst result;
 
   std::cerr << "Composing...";
-  time_t start, end;
-  time (&start);
+
+  struct timespec tstart={0,0}, tend={0,0};
+  clock_gettime(CLOCK_MONOTONIC, &tstart);
   Compose(*in, *lm, &result);
-  time (&end);
-  fprintf(stderr, "Elasped time is %.4lf seconds.\n", difftime(end,start));
+  clock_gettime(CLOCK_MONOTONIC, &tend);
+  printf("Elapsed time: %.5f seconds\n",
+	 ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) -
+	 ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec));
 
   std::cerr << "Writing" << std::endl;
   result.Write("result.fst");
